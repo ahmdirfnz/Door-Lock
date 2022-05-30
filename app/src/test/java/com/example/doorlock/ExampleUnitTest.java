@@ -1,4 +1,4 @@
-package com.atharvakale.facerecognition;
+package com.example.doorlock;
 
 import org.junit.Test;
 

@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -8,7 +9,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.atharvakale.facerecognition"
+        applicationId "com.example.doorlock"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 4
@@ -45,6 +46,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.2'
     implementation 'androidx.navigation:navigation-ui:2.3.2'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.firebase:firebase-auth:21.0.5'
+    implementation 'com.google.firebase:firebase-database:20.0.5'
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 

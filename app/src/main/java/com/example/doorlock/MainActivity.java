@@ -1,4 +1,4 @@
-package com.atharvakale.facerecognition;
+package com.example.doorlock;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -41,6 +41,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
 
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.mlkit.vision.common.InputImage;
@@ -241,6 +247,18 @@ public class MainActivity extends AppCompatActivity {
                 reco_name.setVisibility(View.VISIBLE);
                 face_preview.setVisibility(View.INVISIBLE);
                 preview_info.setText("");
+
+
+//                    mDatabase.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
                 //preview_info.setVisibility(View.INVISIBLE);
                 }
                 else
@@ -349,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
                             "0", "", -1f);
                     result.setExtra(embeedings);
 
-                    registered.put( input.getText().toString(),result);
+                    registered.put(input.getText().toString(),result);
                     start=true;
 
                 }
@@ -635,6 +653,35 @@ public class MainActivity extends AppCompatActivity {
                                                     if(start)
                                                         recognizeImage(scaled); //Send scaled bitmap to create face embeddings.
 //                                                    System.out.println(boundingBox);
+
+                                                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                                                    String name = reco_name.getText().toString();
+                                                    if (name.equals("Irfan")) {
+                                                        mDatabase.child("Name").setValue("Irfan");
+                                                        mDatabase.child("Door").setValue(0);
+                                                        mDatabase.child("Alarm").setValue(1);
+                                                    } else if (name.equals("Ashik")) {
+                                                        mDatabase.child("Name").setValue("Ashik");
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    }else if (name.equals("amirul")) {
+                                                        mDatabase.child("Name").setValue("Thief");
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    }else if (name.equals("long")) {
+                                                        mDatabase.child("Name").setValue("Long");
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    }else if (name.equals("azim")) {
+                                                        mDatabase.child("Name").setValue("Long");
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    } else {
+                                                        mDatabase.child("Name").setValue("Not Recognize");
+                                                        mDatabase.child("Door").setValue(0);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    }
 
                                                 }
                                                 else
