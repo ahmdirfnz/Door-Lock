@@ -42,6 +42,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     Button recognize,camera_switch, actions;
     ImageButton add_face;
     CameraSelector cameraSelector;
+    Button logout;
     boolean developerMode=false;
     float distance= 1.0f;
     boolean start=true,flipX=false;
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         textAbove_preview =findViewById(R.id.textAbovePreview);
         add_face=findViewById(R.id.imageButton);
         add_face.setVisibility(View.INVISIBLE);
+        logout = findViewById(R.id.logout);
 
         SharedPreferences sharedPref = getSharedPreferences("Distance",Context.MODE_PRIVATE);
         distance = sharedPref.getFloat("distance",1.00f);
@@ -291,7 +294,13 @@ public class MainActivity extends AppCompatActivity {
 
         cameraBind();
 
-
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
 
     }
     private void testHyperparameter()
@@ -659,24 +668,24 @@ public class MainActivity extends AppCompatActivity {
                                                     String name = reco_name.getText().toString();
                                                     if (name.equals("Irfan")) {
                                                         mDatabase.child("Name").setValue("Irfan");
-                                                        mDatabase.child("Door").setValue(0);
-                                                        mDatabase.child("Alarm").setValue(1);
-                                                    } else if (name.equals("Ashik")) {
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    } else if (name.equals("Hazim")) {
+                                                        mDatabase.child("Name").setValue("Hazim");
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    }else if (name.equals("Ashik")) {
                                                         mDatabase.child("Name").setValue("Ashik");
                                                         mDatabase.child("Door").setValue(1);
                                                         mDatabase.child("Alarm").setValue(0);
-                                                    }else if (name.equals("amirul")) {
+                                                    }else if (name.equals("Aisyah")) {
+                                                        mDatabase.child("Name").setValue("Aisyah");
+                                                        mDatabase.child("Door").setValue(1);
+                                                        mDatabase.child("Alarm").setValue(0);
+                                                    }else if (name.equals("Iqy")) {
                                                         mDatabase.child("Name").setValue("Thief");
-                                                        mDatabase.child("Door").setValue(1);
-                                                        mDatabase.child("Alarm").setValue(0);
-                                                    }else if (name.equals("long")) {
-                                                        mDatabase.child("Name").setValue("Long");
-                                                        mDatabase.child("Door").setValue(1);
-                                                        mDatabase.child("Alarm").setValue(0);
-                                                    }else if (name.equals("azim")) {
-                                                        mDatabase.child("Name").setValue("Long");
-                                                        mDatabase.child("Door").setValue(1);
-                                                        mDatabase.child("Alarm").setValue(0);
+                                                        mDatabase.child("Door").setValue(0);
+                                                        mDatabase.child("Alarm").setValue(1);
                                                     } else {
                                                         mDatabase.child("Name").setValue("Not Recognize");
                                                         mDatabase.child("Door").setValue(0);
